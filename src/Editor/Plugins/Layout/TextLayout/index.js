@@ -17,7 +17,7 @@ export default {
   IconComponent: <CropSquare />,
   name: 'example/layout/black-border',
   version: '0.0.1',
-  text: 'Black Border',
+  text: 'Search Container',
 
   createInitialChildren: () => ({
     id: 1,
@@ -43,7 +43,7 @@ export default {
             content: {
               plugin: new ContentPlugin(SearchResult),
               state: {
-                searchResultsName: 'Sample Text'
+                searchResultsName: 'Editable Search Result' // this should be the editable search result
               }
             },
             id: 5
