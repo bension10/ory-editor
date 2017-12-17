@@ -4,7 +4,7 @@ import Subject from 'material-ui/svg-icons/action/subject'
 
 export default (store) => {
 
-  const Component = (props) => (<SearchResult fields_data={store} {...props} />)
+  const Component = (props) => (<SearchResult {...store} {...props} />)
 
   return {
     Component,

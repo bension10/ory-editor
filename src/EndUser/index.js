@@ -5,18 +5,19 @@ import Search from '../Editor/Plugins/Content/Search/'
 import SearchResult from '../Editor/Plugins/Content/SearchResult/'
 import TextLayout from '../Editor/Plugins/Layout/TextLayout/'
 
-const props = ['Education']
-
-//TODO move this to constructor, and add the props(fields_data) there instead
-const plugins = {
-  content: [ Search, SearchResult(props) ],
-  layout: [ TextLayout ],
-}
-
 class EndUser extends Component {
 
+  constructor(props) {
+    super(props)
+    const { fields_data, editor_user_mode } =  this.props
+    this.plugins = {
+      content: [ Search, SearchResult({fields_data, editor_user_mode}) ],
+      layout: [ TextLayout ],
+    }
+  }
+
   componentDidMount () {
-    //this.props.setEditorUserMode("end_user")
+    this.props.setEditorUserMode("end_user")
   }
 
   render() {
@@ -25,7 +26,7 @@ class EndUser extends Component {
     return (
       <div>
         <h1>End User App</h1>
-        <HTMLRenderer state={data} plugins={plugins} is_end_user={true} />
+        <HTMLRenderer state={data} plugins={this.plugins} />
       </div>
     )
   }

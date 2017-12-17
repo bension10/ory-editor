@@ -12,26 +12,24 @@ import SearchResult from './Plugins/Content/SearchResult'
 import TextLayout from './Plugins/Layout/TextLayout'
 
 import injectTapEventPlugin from 'react-tap-event-plugin'
-const props = ['Education', 'Skills', ]
-
 injectTapEventPlugin()
 
-const plugins = {
-  content: [ Search, SearchResult(props) ],
-  layout: [ TextLayout ],
-}
-
-const content = createEmptyState()
-
-// Instantiate the editor
-const editor = new Editor({
-  plugins,
-  editables: [content],
-  defaultPlugin: Search
-})
-
-
 class EditorContainer extends Component {
+
+  constructor(props) {
+    super(props)
+    const { fields_data, editor_user_mode } =  this.props
+    const plugins = {
+      content: [ Search, SearchResult({fields_data, editor_user_mode}) ],
+      layout: [ TextLayout ],
+    }
+    this.content = createEmptyState()
+    this.editor = new Editor({
+      plugins,
+      editables: [this.content],
+      defaultPlugin: Search
+    })
+  }
 
   componentDidMount () {
     //this.props.setEditorUserMode("moderator")
@@ -42,13 +40,12 @@ class EditorContainer extends Component {
   }
 
   render() {
-    console.log('editor props ', this.props)
     return (
         <div>
-          <Editable editor={editor} id={content.id} onChange={this.handleEditorChange} {...this.props} />
-          <Trash editor={editor}/>
-          <DisplayModeToggle editor={editor}/>
-          <Toolbar editor={editor}/>
+          <Editable editor={this.editor} id={this.content.id} onChange={this.handleEditorChange} />
+          <Trash editor={this.editor}/>
+          <DisplayModeToggle editor={this.editor}/>
+          <Toolbar editor={this.editor}/>
         </div>
     )
   }
