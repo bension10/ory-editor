@@ -1,22 +1,37 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Search extends Component {
 
-  handleClick = (event) => {
+  handleSearchClick = (event) => {
     const { onChange } = this.props
     onChange({
-      value: event.target.value
+      search_value: event.target.value,
     })
   }
 
+  handleSearch = (event) => {
+    console.log('search ', event)
+  }
+
   render() {
-    console.log('props ', this.props)
+    const { style } = this.props
     return(
         <div>
-          <TextField name="search-key" hind="Search Here..." onChange={this.handleClick} />
+          <TextField name="search-key" hind="Search Here..." onChange={this.handleSearchClick} />
+          <RaisedButton label="Search" style={style.button} onClick={this.handleSearch} />
         </div>
     )
   }
 }
+
+Search.defaultProps = {
+  style: {
+    button: {
+      margin: 12,
+    }
+  }
+}
+
 export default Search

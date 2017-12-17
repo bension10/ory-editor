@@ -1,11 +1,16 @@
 import React from 'react'
 import SearchResult from './SearchResult'
-import SearchIcon from 'material-ui/svg-icons/action/search'
+import Subject from 'material-ui/svg-icons/action/subject'
 
-export default {
-  Component: SearchResult,
-  IconComponent: <SearchIcon />,
-  name: 'example/content/input-text-field',
-  version: '0.0.1',
-  text: 'Input Text Field',
+export default (store) => {
+
+  const Component = (props) => (<SearchResult fields_data={store} {...props} />)
+
+  return {
+    Component,
+    IconComponent: <Subject />,
+    name: 'moderator/content/search-result-field',
+    version: '0.0.1',
+    text: 'Search Result Field',
+  }
 }

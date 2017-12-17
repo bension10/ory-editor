@@ -1,35 +1,87 @@
 import React, { Component } from 'react'
-import SearchResultsList from './SearchResultsList'
-import Editor, { Editable, createEmptyState } from 'ory-editor-core'
-
-const plugins = {
-  content: [ SearchResultsList ],
-}
-
-const content = createEmptyState()
-const editor = new Editor({
-  plugins,
-  // pass the content state - you can add multiple editables here
-  editables: [content],
-  defaultPlugin: SearchResultsList
-})
+import Paper from 'material-ui/Paper';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import List from 'material-ui/svg-icons/action/list'
 
 class SearchResult extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      show_popover: false,
+      anchor_element: '',
+      default_value: 'Choose Field'
+    }
+  }
 
-  handleClick = (event) => {
+  handleMenuChange = (event, menuItem) => {
     const { onChange } = this.props
     onChange({
-      value: event.target.value
+      field: menuItem.props.primaryText
+    })
+    this.setState({ default_value: menuItem.props.primaryText })
+  }
+
+  togglePopover = (event) => {
+    this.setState({
+      show_popover: !this.state.show_popover,
+      anchor_element: event.currentTarget,
     })
   }
 
   render() {
-    console.log('props ', this.props)
+    const { paper_style, fields_data, isPreviewMode, state } = this.props
+    const { show_popover, anchor_element, default_value } = this.state
+    console.log('search result props ', this.props)
+
+    if(isPreviewMode) {
+      return (
+        <Paper style={paper_style} zDepth={1} >
+          {state.field}
+        </Paper>
+      )
+    }
+
     return(
         <div>
-          <Editable editor={editor} id={234234} content={content.id}/>
+          <Paper style={paper_style} zDepth={1} >
+            {default_value}
+            <List style={{ right: 10, position: 'absolute', }} onClick={this.togglePopover} />
+          </Paper>
+          { show_popover &&
+            <Popover
+                open={show_popover}
+                anchorEl={anchor_element}
+                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                onRequestClose={this.togglePopover}
+            >
+              <Menu onItemClick={ this.handleMenuChange }>
+                {
+                  fields_data.map( (field, key) => {
+                    return <MenuItem primaryText={field} key={key} />
+                  })
+                }
+              </Menu>
+            </Popover>
+          }
         </div>
     )
   }
 }
+
+SearchResult.defaultProps = {
+  paper_style:{
+    position: 'relative',
+    padding: 10,
+    width: 300,
+    margin: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  }
+}
+
 export default SearchResult
+
+

@@ -2,12 +2,11 @@ import React from 'react'
 import { ContentPlugin } from 'ory-editor-core/lib/service/plugin/classes'
 
 import Search from '../../Content/Search'
-import SearchResult from '../../Content/SearchResult'
 import CropSquare from 'material-ui/svg-icons/image/crop-square'
 
 const BlackBorderPlugin = ({ children }) => (
     <div id="black-border" style={{ border: '1px solid black', padding: '16px' }}>
-      <p>Test Layout Plugin</p>
+      <p>Search Here</p>
       {children}
     </div>
 )
@@ -29,24 +28,10 @@ export default {
             content: {
               plugin: new ContentPlugin(Search),
               state: {
-                searchResultsName: 'Sample Text'
+                searchResultsName: 'Search'
               }
             },
             id: 3
-          }
-        ]
-      },
-      {
-        id: 4,
-        cells: [
-          {
-            content: {
-              plugin: new ContentPlugin(SearchResult),
-              state: {
-                searchResultsName: 'Editable Search Result' // this should be the editable search result
-              }
-            },
-            id: 5
           }
         ]
       }

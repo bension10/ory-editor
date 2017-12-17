@@ -1,11 +1,11 @@
 import React from 'react'
 import Search from './Search'
-import SearchIcon from 'material-ui/svg-icons/action/search'
+import Input from 'material-ui/svg-icons/action/input'
 
 export default {
   Component: Search,
-  IconComponent: <SearchIcon />,
-  name: 'example/content/input-text-field',
+  IconComponent: <Input />,
+  name: 'moderator/content/input-text-field',
   version: '0.0.1',
-  text: 'Input Text Field',
+  text: 'Search Input',
 }
