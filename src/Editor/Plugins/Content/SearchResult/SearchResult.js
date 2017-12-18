@@ -5,6 +5,8 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import List from 'material-ui/svg-icons/action/list'
 
+import isEmpty from 'lodash/isEmpty'
+
 class SearchResult extends Component {
   constructor(props) {
     super(props)
@@ -31,9 +33,26 @@ class SearchResult extends Component {
   }
 
   render() {
-    const { paper_style, fields_data, isPreviewMode, state } = this.props
+    const { paper_style, fields_data, isPreviewMode, state, editor_user_mode, search_results } = this.props
     const { show_popover, anchor_element, default_value } = this.state
-    console.log('search result props ', this.props)
+    console.log('search result props ', search_results)
+
+
+    if(editor_user_mode === 'end_user') {
+      if(isEmpty(search_results)) {
+        return (
+          <div>
+            Search Result Here
+          </div>
+        )
+      }
+      else {
+        return Object.keys(search_results.data_text).map( (result, key) => {
+          return <p key={key}>{result.data_text}</p>
+        })
+      }
+
+    }
 
     if(isPreviewMode) {
       return (

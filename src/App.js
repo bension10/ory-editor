@@ -10,6 +10,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 class App extends Component {
 
+  handleClick = (event) => {
+    const user_mode = event.target.getAttribute('data-mode')
+    this.props.setEditorUserMode(user_mode)
+  }
+
   render() {
     console.log('app data ', this.props)
     return (
@@ -18,13 +23,13 @@ class App extends Component {
             <div className="App">
               <header className="App-header">
                 <Link to={'/'}>
-                  <span className="App-title">
+                  <span className="App-title" data-mode="moderator" onClick={this.handleClick} >
                     Moderator
                   </span>
                 </Link>
                 {' '} === {' '}
                 <Link to={'/end_user'}>
-                  <span className="App-title">
+                  <span className="App-title" data-mode="end_user" onClick={this.handleClick}>
                     End User
                   </span>
                 </Link>
@@ -42,9 +47,10 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    data: state.data,
+    editor_data: state.editor_data,
     fields_data: state.fields_data,
     editor_user_mode: state.editor_user_mode,
+    search_results: state.search_results,
   }
 }
 

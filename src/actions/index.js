@@ -13,3 +13,11 @@ export const setEditorUserMode = (user_mode) => {
     user_mode
   }
 }
+
+export const getSearchResult = (search_key) => {
+  console.log('search key ', search_key)
+  return {
+    type: types.GET_SEARCH_RESULTS,
+    search_key
+  }
+}

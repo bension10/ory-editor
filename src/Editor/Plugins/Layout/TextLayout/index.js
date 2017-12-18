@@ -11,30 +11,33 @@ const BlackBorderPlugin = ({ children }) => (
     </div>
 )
 
-export default {
-  Component: BlackBorderPlugin,
-  IconComponent: <CropSquare />,
-  name: 'example/layout/black-border',
-  version: '0.0.1',
-  text: 'Search Container',
+export default (store) => {
+  const Component = (props) => (<BlackBorderPlugin {...props} />)
+  return {
+    Component,
+    IconComponent: <CropSquare />,
+    name: 'example/layout/black-border',
+    version: '0.0.1',
+    text: 'Search Container',
 
-  createInitialChildren: () => ({
-    id: 1,
-    rows: [
-      {
-        id: 2,
-        cells: [
-          {
-            content: {
-              plugin: new ContentPlugin(Search),
-              state: {
-                searchResultsName: 'Search'
-              }
-            },
-            id: 3
-          }
-        ]
-      }
-    ],
-  }),
+    createInitialChildren: () => ({
+      id: 1,
+      rows: [
+        {
+          id: 2,
+          cells: [
+            {
+              content: {
+                plugin: new ContentPlugin(Search({...store})),
+                state: {
+                  searchResultsName: 'Search'
+                }
+              },
+              id: 3
+            }
+          ]
+        }
+      ],
+    })
+  }
 }

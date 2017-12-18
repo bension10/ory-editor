@@ -18,21 +18,21 @@ class EditorContainer extends Component {
 
   constructor(props) {
     super(props)
-    const { fields_data, editor_user_mode } =  this.props
+    const { fields_data, editor_user_mode, getSearchResult, search_results } =  this.props
     const plugins = {
-      content: [ Search, SearchResult({fields_data, editor_user_mode}) ],
-      layout: [ TextLayout ],
+      content: [ Search({editor_user_mode, getSearchResult}), SearchResult({fields_data, editor_user_mode, search_results}) ],
+      layout: [ TextLayout({editor_user_mode, getSearchResult}) ],
     }
     this.content = createEmptyState()
     this.editor = new Editor({
       plugins,
       editables: [this.content],
-      defaultPlugin: Search
+      defaultPlugin: Search({editor_user_mode, getSearchResult})
     })
   }
 
   componentDidMount () {
-    //this.props.setEditorUserMode("moderator")
+    // this.props.setEditorUserMode("moderator")
   }
 
   handleEditorChange = (editorState) => {
