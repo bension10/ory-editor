@@ -35,7 +35,7 @@ class SearchResult extends Component {
   render() {
     const { paper_style, fields_data, isPreviewMode, state, editor_user_mode, search_results } = this.props
     const { show_popover, anchor_element, default_value } = this.state
-    console.log('search result props ', search_results)
+    console.log('search result props ', this.props)
 
 
     if(editor_user_mode === 'end_user') {
@@ -47,9 +47,10 @@ class SearchResult extends Component {
         )
       }
       else {
-        return Object.keys(search_results.data_text).map( (result, key) => {
-          return <p key={key}>{result.data_text}</p>
-        })
+        <p>We have data!</p>
+        //return Object.keys(search_results.data_text).map( (result, key) => {
+        //  return <p key={key}>{result.data_text}</p>
+        //})
       }
 
     }

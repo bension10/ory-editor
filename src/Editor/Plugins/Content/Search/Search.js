@@ -10,21 +10,21 @@ class Search extends Component {
     }
   }
 
-
   handleSearchClick = (event) => {
     const { onChange } = this.props
+
     onChange({
       search_value: event.target.value,
     })
+
+    this.setState({ search_key: event.target.value })
   }
 
-  handleSearch = (event) => {
-    console.log('search ', event)
-    this.props.getSearchResult()
+  handleSearch = () => {
+    this.props.getSearchResult(this.state.search_key)
   }
 
   render() {
-    console.log('props ', this.props)
     const { style, editor_user_mode } = this.props
 
     return(

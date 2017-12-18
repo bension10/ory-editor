@@ -3,6 +3,7 @@ import SearchResult from './SearchResult'
 import Subject from 'material-ui/svg-icons/action/subject'
 
 export default (store) => {
+  console.log('store ', store)
 
   const Component = (props) => (<SearchResult {...store} {...props} />)
 

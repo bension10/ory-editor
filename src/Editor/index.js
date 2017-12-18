@@ -21,7 +21,7 @@ class EditorContainer extends Component {
     const { fields_data, editor_user_mode, getSearchResult, search_results } =  this.props
     const plugins = {
       content: [ Search({editor_user_mode, getSearchResult}), SearchResult({fields_data, editor_user_mode, search_results}) ],
-      layout: [ TextLayout({editor_user_mode, getSearchResult}) ],
+      layout: [ TextLayout({editor_user_mode, getSearchResult, search_results}) ],
     }
     this.content = createEmptyState()
     this.editor = new Editor({
