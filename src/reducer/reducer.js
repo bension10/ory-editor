@@ -27,7 +27,7 @@ export const editor_user_mode = ( state = "moderator", action = {} ) => {
 }
 
 export const search_results = ( state = {}, action = {} ) => {
-  console.log('payload ', action.payload)
+  console.log('search results reducer ', action.payload)
   switch (action.type) {
     case types.SET_SEARCH_RESULTS:
       return action.payload

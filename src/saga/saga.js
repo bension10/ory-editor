@@ -1,6 +1,5 @@
 import { put, takeLatest, takeEvery } from 'redux-saga/effects'
 import * as types from '../constants/index'
-import { fetchSearchResults } from '../api/search'
 import search_result from '../fake_data/search_results'
 
 
@@ -37,6 +36,7 @@ export function* watchSetEditorUserMode() {
 }
 
 export function* getSearchResultSaga(action) {
+  console.log('getSearchResultSaga', action)
   try {
     const results = search_result
 

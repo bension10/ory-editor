@@ -10,26 +10,24 @@ import 'ory-editor-ui/lib/index.css'
 import Search from './Plugins/Content/Search'
 import SearchResult from './Plugins/Content/SearchResult'
 import TextLayout from './Plugins/Layout/TextLayout'
-
+import store from '../store/'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 injectTapEventPlugin()
 
-class EditorContainer extends Component {
+const my_store = store.getState()
 
-  constructor(props) {
-    super(props)
-    const { fields_data, editor_user_mode, getSearchResult, search_results } =  this.props
-    const plugins = {
-      content: [ Search({editor_user_mode, getSearchResult}), SearchResult({fields_data, editor_user_mode, search_results}) ],
-      layout: [ TextLayout({editor_user_mode, getSearchResult, search_results}) ],
-    }
-    this.content = createEmptyState()
-    this.editor = new Editor({
-      plugins,
-      editables: [this.content],
-      defaultPlugin: Search({editor_user_mode, getSearchResult})
-    })
-  }
+const content = createEmptyState()
+const plugins = {
+  content: [ Search(my_store), SearchResult(my_store) ],
+  layout: [ TextLayout(my_store) ],
+}
+const editor = new Editor({
+  plugins,
+  editables: [content],
+  defaultPlugin: Search(my_store)
+})
+
+class EditorContainer extends Component {
 
   componentDidMount () {
     // this.props.setEditorUserMode("moderator")
@@ -42,10 +40,10 @@ class EditorContainer extends Component {
   render() {
     return (
         <div>
-          <Editable editor={this.editor} id={this.content.id} onChange={this.handleEditorChange} />
-          <Trash editor={this.editor}/>
-          <DisplayModeToggle editor={this.editor}/>
-          <Toolbar editor={this.editor}/>
+          <Editable editor={editor} id={content.id} onChange={this.handleEditorChange} />
+          <Trash editor={editor}/>
+          <DisplayModeToggle editor={editor}/>
+          <Toolbar editor={editor}/>
         </div>
     )
   }

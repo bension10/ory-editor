@@ -47,12 +47,11 @@ class SearchResult extends Component {
         )
       }
       else {
-        <p>We have data!</p>
+        return <p>We have data!</p>
         //return Object.keys(search_results.data_text).map( (result, key) => {
         //  return <p key={key}>{result.data_text}</p>
         //})
       }
-
     }
 
     if(isPreviewMode) {
@@ -64,29 +63,29 @@ class SearchResult extends Component {
     }
 
     return(
-        <div>
-          <Paper style={paper_style} zDepth={1} >
-            {default_value}
-            <List style={{ right: 10, position: 'absolute', }} onClick={this.togglePopover} />
-          </Paper>
-          { show_popover &&
-            <Popover
-                open={show_popover}
-                anchorEl={anchor_element}
-                anchorOrigin={{horizontal: 'right', vertical: 'top'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                onRequestClose={this.togglePopover}
-            >
-              <Menu onItemClick={ this.handleMenuChange }>
-                {
-                  fields_data.map( (field, key) => {
-                    return <MenuItem primaryText={field} key={key} />
-                  })
-                }
-              </Menu>
-            </Popover>
-          }
-        </div>
+      <div>
+        <Paper style={paper_style} zDepth={1} >
+          {default_value}
+          <List style={{ right: 10, position: 'absolute', }} onClick={this.togglePopover} />
+        </Paper>
+        { show_popover &&
+        <Popover
+          open={show_popover}
+          anchorEl={anchor_element}
+          anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          onRequestClose={this.togglePopover}
+          >
+          <Menu onItemClick={ this.handleMenuChange }>
+            {
+              fields_data.map( (field, key) => {
+                return <MenuItem primaryText={field} key={key} />
+              })
+            }
+          </Menu>
+        </Popover>
+        }
+      </div>
     )
   }
 }

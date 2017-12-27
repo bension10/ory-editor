@@ -5,28 +5,29 @@ import Search from '../Editor/Plugins/Content/Search/'
 import SearchResult from '../Editor/Plugins/Content/SearchResult/'
 import TextLayout from '../Editor/Plugins/Layout/TextLayout/'
 
+import store from '../store/'
+
+const my_store = store.getState()
+const dispatch = store.dispatch
+
+const plugins = {
+  content: [ Search({...my_store, dispatch}), SearchResult({...my_store, dispatch}) ],
+  layout: [ TextLayout({...my_store, dispatch}) ],
+}
+
 class EndUser extends Component {
-
-  constructor(props) {
-    super(props)
-    const { fields_data, editor_user_mode, getSearchResult, search_results } =  this.props
-    this.plugins = {
-      content: [ Search({editor_user_mode, getSearchResult}), SearchResult({fields_data, editor_user_mode, search_results}) ],
-      layout: [ TextLayout({editor_user_mode, getSearchResult}) ],
-    }
-  }
-
   componentDidMount () {
     // this.props.setEditorUserMode("end_user")
   }
 
   render() {
     const { editor_data } = this.props
-    console.log('end user props ', this.props)
+    //console.log('end user props ', this.props)
+    //console.log('end user my_store ', my_store)
     return (
       <div>
         <h1>End User App</h1>
-        <HTMLRenderer state={editor_data} plugins={this.plugins} />
+        <HTMLRenderer state={editor_data} plugins={plugins} />
       </div>
     )
   }

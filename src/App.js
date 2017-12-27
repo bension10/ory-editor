@@ -16,7 +16,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('app data ', this.props)
     return (
         <MuiThemeProvider>
           <Router>

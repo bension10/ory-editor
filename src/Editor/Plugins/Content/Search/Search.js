@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { getSearchResult } from '../../../../actions/index'
 
 class Search extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class Search extends Component {
   }
 
   handleSearch = () => {
-    this.props.getSearchResult(this.state.search_key)
+    this.props.dispatch(getSearchResult(this.state.search_key))
   }
 
   render() {

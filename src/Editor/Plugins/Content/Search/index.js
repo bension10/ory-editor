@@ -12,4 +12,5 @@ export default (store) => {
     version: '0.0.1',
     text: 'Search Input',
   }
+
 }
